@@ -55,6 +55,8 @@
 	</h:form>
 -->
 
+	<!-- PrimefacesTestingBean  -->
+	<h2>Mindmap from Primefaces</h2>
 	<h:form>
 		<p:mindmap value="#{primefacesTestingBean.root}"
 			style="width: 100%;height: 1000px;border: 1px solid black;">
@@ -72,24 +74,56 @@
 		</p:dialog>
 	</h:form>
 
+	<!-- TagCloudTestBean -->
 	<h:form>
-		<p:growl id="msgs" showDetail="true" />
-		<p:tagCloud id="tagCloud" model="#{tagCloudTestBean.model}">
-			<p:ajax event="select" update="msgs"
-				listener="#{tagCloudTestBean.onSelect}" />
-		</p:tagCloud>
-		
-		<h:panelGrid columns="4" cellpadding="5">
-			<h:outputLabel for="tagLabel" value="Tag Label:"
-				style="font-weight:bold" />
-			<p:inputText id="tagLabel" value="#{tagCloudTestBean.tagCloudLabel}" />
-			<h:outputLabel for="tagNumber" value="Tag Number:"
-				style="fon-weight:bold" />
-			<p:inputNumber id="tagNumber" value="#{tagCloudTestBean.tagCloudNum}" />
-			<p:commandButton value="Submit"
-				action="#{tagCloudTestBean.updateTagCloud}" update="tagCloud" />
-		</h:panelGrid>
+		<p:panel id="tagCloudToggle" header="Toggleable" toggleable="true"
+			closable="true" toggleSpeed="500" closeSpeed="500"
+			widgetVar="tagPanel" style="margin-bottom:20px">
+
+			<h:panelGrid columns="1" cellpadding="10">
+				<h2>Tag Cloud from Primefaces</h2>
+				<h:form>
+					<p:growl id="msgs" showDetail="true" />
+					<p:tagCloud id="tagCloud" model="#{tagCloudTestBean.model}">
+						<p:ajax event="select" update="msgs"
+							listener="#{tagCloudTestBean.onSelect}" />
+					</p:tagCloud>
+
+					<h:panelGrid columns="4" cellpadding="5">
+						<h:outputLabel for="tagLabel" value="Tag Label:"
+							style="font-weight:bold" />
+						<p:inputText id="tagLabel"
+							value="#{tagCloudTestBean.tagCloudLabel}" />
+						<h:outputLabel for="tagNumber" value="Tag Number:"
+							style="fon-weight:bold" />
+						<p:inputNumber id="tagNumber"
+							value="#{tagCloudTestBean.tagCloudNum}" />
+						<p:commandButton value="Submit"
+							action="#{tagCloudTestBean.updateTagCloud}" update="tagCloud" />
+					</h:panelGrid>
+				</h:form>
+			</h:panelGrid>
+
+			<f:facet name="options">
+				<p:menu>
+					<p:submenu label="Settings">
+						<p:menuitem value="Toggle" url="#" icon="ui-icon-newwin"
+							onclick="PF('tagPanel').toggle()" />
+						<p:menuitem value="Remove" url="#" icon="ui-icon-close"
+							onclick="PF('tagPanel').close()" />
+					</p:submenu>
+				</p:menu>
+			</f:facet>
+		</p:panel>
 	</h:form>
-	
+
+	<!-- PollTestBean -->
+	<h2>Poll from Primefaces</h2>
+	<h:form>
+		<h:outputText id="txt_count" value="#{pollTestBean.counter}" />
+		<p:poll interval="3" listener="#{pollTestBean.incrementCounter}"
+			update="txt_count" />
+	</h:form>
+
 </h:body>
 </html>
