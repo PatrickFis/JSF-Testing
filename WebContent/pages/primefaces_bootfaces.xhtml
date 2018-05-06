@@ -72,5 +72,24 @@
 		</p:dialog>
 	</h:form>
 
+	<h:form>
+		<p:growl id="msgs" showDetail="true" />
+		<p:tagCloud id="tagCloud" model="#{tagCloudTestBean.model}">
+			<p:ajax event="select" update="msgs"
+				listener="#{tagCloudTestBean.onSelect}" />
+		</p:tagCloud>
+		
+		<h:panelGrid columns="4" cellpadding="5">
+			<h:outputLabel for="tagLabel" value="Tag Label:"
+				style="font-weight:bold" />
+			<p:inputText id="tagLabel" value="#{tagCloudTestBean.tagCloudLabel}" />
+			<h:outputLabel for="tagNumber" value="Tag Number:"
+				style="fon-weight:bold" />
+			<p:inputNumber id="tagNumber" value="#{tagCloudTestBean.tagCloudNum}" />
+			<p:commandButton value="Submit"
+				action="#{tagCloudTestBean.updateTagCloud}" update="tagCloud" />
+		</h:panelGrid>
+	</h:form>
+	
 </h:body>
 </html>

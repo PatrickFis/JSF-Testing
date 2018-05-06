@@ -13,7 +13,6 @@ import com.patrick.util.GameUtil;
 
 @Named
 @SessionScoped
-
 public class HomeBean implements Serializable {
 	private static final long serialVersionUID = -5451173758940615448L;
 	private String testValue = "test value";
