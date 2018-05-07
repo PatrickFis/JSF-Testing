@@ -1,6 +1,7 @@
 package com.patrick.beans;
 
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,14 +14,14 @@ import com.patrick.util.FileBrowserUtil;
 @SessionScoped
 public class FileBrowserBean implements Serializable {
 	private static final long serialVersionUID = -5315513115325350496L;
-	private List<String> filePaths = new ArrayList<>();
 	private String mostRecentFilePath;
 	private FileBrowserUtil fbUtil;
+	private List<Path> filePaths;
 	
-	public List<String> getFilePaths() {
+	public List<Path> getFilePaths() {
 		return filePaths;
 	}
-	public void setFilePaths(List<String> filePaths) {
+	public void setFilePaths(List<Path> filePaths) {
 		this.filePaths = filePaths;
 	}
 	public String getMostRecentFilePath() {
@@ -28,8 +29,8 @@ public class FileBrowserBean implements Serializable {
 	}
 	public void setMostRecentFilePath(String mostRecentFilePath) {
 		this.mostRecentFilePath = mostRecentFilePath;
-		filePaths.add(mostRecentFilePath);
 		fbUtil = new FileBrowserUtil(mostRecentFilePath);
+		this.filePaths = fbUtil.getFilePaths();
 	}
 	
 	
