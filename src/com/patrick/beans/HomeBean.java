@@ -3,12 +3,15 @@ package com.patrick.beans;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import com.patrick.designpatterns.SingletonBean;
 import com.patrick.util.GameUtil;
 
 @Named
@@ -21,6 +24,9 @@ public class HomeBean implements Serializable {
 	
 	@Inject
 	private GameUtil gameUtil;
+	
+	@Inject
+	private SingletonBean sb;
 	
 	public Date getCurrentDate() {
 		return currentDate;
@@ -49,5 +55,10 @@ public class HomeBean implements Serializable {
 	
 	public List<String> getGameFolders() {
 		return this.gameUtil.getDirectories();
+	}
+	
+	@PostConstruct
+	public void callDesignPatterStuff() {
+		log.log(Level.INFO, "SingletonBean queue value: {0}", sb.getPool());
 	}
 }

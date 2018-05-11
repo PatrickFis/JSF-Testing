@@ -8,6 +8,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.primefaces.event.ScheduleEntryMoveEvent;
@@ -27,6 +28,9 @@ public class ScheduleBean implements Serializable {
 	
 	private ScheduleModel eventModel;
 	private ScheduleEvent event = new DefaultScheduleEvent();
+	
+	@Inject
+	ScheduleTimelineBean timeline;
 	
 	@PostConstruct
 	public void init() {
@@ -52,6 +56,7 @@ public class ScheduleBean implements Serializable {
 	public void addEvent(ActionEvent actionEvent) {
 		if(event.getId() == null) {
 			eventModel.addEvent(event);
+			timeline.addEvent(event.getTitle(), event.getStartDate());
 		} else {
 			eventModel.updateEvent(event);
 		}

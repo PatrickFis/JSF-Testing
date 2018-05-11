@@ -49,7 +49,7 @@
 				<p:outputLabel for="allDay" value="All Day:" />
 				<h:selectBooleanCheckbox id="allDay"
 					value="#{scheduleBean.event.allDay}" />
-				
+
 				<p:commandButton type="reset" value="Reset" />
 				<p:commandButton id="addButton" value="Save"
 					actionListener="#{scheduleBean.addEvent}"
@@ -58,5 +58,23 @@
 		</p:dialog>
 	</h:form>
 
+	<p:growl id="growl" showSummary="true" showDetail="true">
+		<p:autoUpdate />
+	</p:growl>
+
+	<p:timeline id="timeline" value="#{scheduleTimelineBean.model}"
+		height="250px" selectable="#{scheduleTimelineBean.selectable}"
+		zoomable="#{scheduleTimelineBean.zoomable}"
+		moveable="#{scheduleTimelineBean.moveable}"
+		stackEvents="#{scheduleTimelineBean.stackEvents}"
+		axisOnTop="#{scheduleTimelineBean.axisOnTop}"
+		eventStyle="#{scheduleTimelineBean.eventStyle}"
+		showCurrentTime="#{scheduleTimelineBean.showCurrentTime}"
+		showNavigation="#{scheduleTimelineBean.showNavigation}">
+
+		<p:ajax event="select" listener="#{scheduleTimelineBean.onSelect}" />
+
+	</p:timeline>
+	
 </h:body>
 </html>
