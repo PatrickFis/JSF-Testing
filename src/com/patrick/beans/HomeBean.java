@@ -74,7 +74,7 @@ public class HomeBean implements Serializable {
 	}
 	
 	@PostConstruct
-	public void callDesignPatterStuff() {
+	public void callDesignPatternStuff() {
 		log.log(Level.INFO, "SingletonBean queue value: {0}", sb.getPool());
 		observableClassEvent.fire(new ObservableClass());
 		decoratedLogger.debug("Test message");
