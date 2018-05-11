@@ -7,15 +7,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import com.patrick.designpatterns.SingletonBean;
+import com.patrick.designpatterns.util.DecoratorLoggingInterface;
+import com.patrick.designpatterns.util.ObservableClass;
 import com.patrick.util.GameUtil;
 
 @Named
-@SessionScoped
+//@SessionScoped
 public class HomeBean implements Serializable {
 	private static final long serialVersionUID = -5451173758940615448L;
 	private String testValue = "test value";
@@ -25,8 +27,22 @@ public class HomeBean implements Serializable {
 	@Inject
 	private GameUtil gameUtil;
 	
+	/*
+	 * Design Patterns
+	 */
+	
 	@Inject
 	private SingletonBean sb;
+	
+	@Inject
+	private Event<ObservableClass> observableClassEvent;
+	
+	@Inject
+	private DecoratorLoggingInterface decoratedLogger;
+	
+	/*
+	 * End Design Patterns
+	 */
 	
 	public Date getCurrentDate() {
 		return currentDate;
@@ -60,5 +76,7 @@ public class HomeBean implements Serializable {
 	@PostConstruct
 	public void callDesignPatterStuff() {
 		log.log(Level.INFO, "SingletonBean queue value: {0}", sb.getPool());
+		observableClassEvent.fire(new ObservableClass());
+		decoratedLogger.debug("Test message");
 	}
 }
